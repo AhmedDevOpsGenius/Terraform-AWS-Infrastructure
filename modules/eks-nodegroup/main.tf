@@ -2,21 +2,25 @@ provider "aws" {
   region = var.region
 }
 
-module "eks_cluster" {
-  source           = "terraform-aws-modules/eks/aws"
-  version          = "17.2.0"
-  cluster_name     = var.cluster_name
-  cluster_version  = var.cluster_version
-  subnets          = var.subnets
-  vpc_id           = var.vpc_id
+resource "aws_eks_cluster" "cluster" {
+  name     = var.cluster_name
+  version  = var.cluster_version
+  role_arn = var.cluster_role_arn
+  vpc_config {
+    subnet_ids = var.subnet_ids
+  }
 }
 
-module "eks-node-group" {
-  source           = "cloudposse/eks-node-group/aws"
-  version          = "2.12.0"
-  cluster_name     = module.eks_cluster.cluster_id
-  subnet_ids       = var.subnets
-  max_size         = var.worker_max_capacity
-  min_size         = var.worker_min_capacity
-  desired_size     = var.worker_desired_capacity
+resource "aws_eks_node_group" "node_group" {
+  cluster_name       = aws_eks_cluster.cluster.name
+  node_group_name    = var.node_group_name
+  subnet_ids         = var.subnet_ids
+  instance_types     = var.instance_types
+  capacity_type      = "ON_DEMAND" 
+  scaling_config {
+    desired_size = var.desired_size
+    min_size     = var.min_size
+    max_size     = var.max_size
+  }
+  node_role_arn      = "arn:aws:iam::98765432:role/aws-service-role/eks.amazonaws.com/AWSServiceRoleForAmazonEKS"
 }
