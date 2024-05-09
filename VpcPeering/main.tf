@@ -5,7 +5,7 @@ provider "aws" {
 # Create VPCs
 module "vpc1" {
   source               = "./modules/vpc1"
-  vpc_cidr_block       = "172.31.0.0/16"
+  vpc_cidr_block       = "0.0.0.0/16"
   vpc_name             = "VPC1"
   enable_dns_hostnames = true
   enable_dns_support   = true
