@@ -4,15 +4,15 @@ variable "groups" {
 }
 
 variable "custom_policies" {
-  description = "List of custom policy ARNs to attach to each group."
-  type        = list(string)
-  default     = []
+  description = "Map of custom policy ARNs to attach to each group."
+  type = map(string)
+  default = {}
 }
 
 variable "managed_policies" {
-  description = "List of managed policy ARNs to attach to each group."
-  type        = list(string)
-  default     = []
+  description = "Map of managed policy ARNs to attach to each group."
+  type = map(string)
+  default = {}
 }
 
 variable "user_memberships" {
