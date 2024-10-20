@@ -10,9 +10,41 @@ This Terraform module creates a fully dynamic AWS CloudFront distribution with o
 - Optionally associates an SSL certificate for HTTPS delivery.
 - Supports custom error responses.
 
-# CloudFront Terraform Module
 
-This Terraform module creates a CloudFront distribution with customizable options for caching, error responses, and origins.
+## Inputs
+
+| Name                 | Description                                | Type    | Default                     | Required |
+|----------------------|--------------------------------------------|---------|-----------------------------|----------|
+| `enabled`            | Whether to create CloudFront distribution  | `bool`  | `true`                      |  no      |
+| `comment`            | Comment for the CloudFront distribution    | `string`| `My CloudFront Distribution`|  no      |
+| `price_class`        | The price class for CloudFront             | `string`| `PriceClass_100`            |  no      |
+| `default_root_object`| The default object to serve                | `string`| `index.html`                |  no      |
+
+
+
+## Outputs
+
+| Name                          | Description                                    |
+|-------------------------------|------------------------------------------------|
+| `cloudfront_distribution_id`  | The ID of the CloudFront distribution          |
+| `cloudfront_domain_name`      | The domain name of the CloudFront endpoint     |
+| `cloudfront_hosted_zone_id`   | The CloudFront hosted zone ID                  |
+
+
+
+## Resources Used
+
+AWS CloudFront Distribution: Creates a CDN distribution that caches and delivers content from edge locations.
+
+AWS Origin Access Identity (optional): Grants CloudFront access to an S3 bucket.
+
+
+## Requirements
+
+Terraform version >= 0.12
+
+AWS provider version >= 3.0
+
 
 ## Usage
 
@@ -60,42 +92,6 @@ module "cloudfront" {
     error_caching_min_ttl = 300
   }
 }
-
-
-
-## Inputs
-
-| Name                 | Description                                | Type    | Default                     | Required |
-|----------------------|--------------------------------------------|---------|-----------------------------|----------|
-| `enabled`            | Whether to create CloudFront distribution  | `bool`  | `true`                      |  no      |
-| `comment`            | Comment for the CloudFront distribution    | `string`| `My CloudFront Distribution`|  no      |
-| `price_class`        | The price class for CloudFront             | `string`| `PriceClass_100`            |  no      |
-| `default_root_object`| The default object to serve                | `string`| `index.html`                |  no      |
-
-
-
-## Outputs
-
-| Name                          | Description                                    |
-|-------------------------------|------------------------------------------------|
-| `cloudfront_distribution_id`  | The ID of the CloudFront distribution          |
-| `cloudfront_domain_name`      | The domain name of the CloudFront endpoint     |
-| `cloudfront_hosted_zone_id`   | The CloudFront hosted zone ID                  |
-
-
-
-## Resources Used
-
-AWS CloudFront Distribution: Creates a CDN distribution that caches and delivers content from edge locations.
-
-AWS Origin Access Identity (optional): Grants CloudFront access to an S3 bucket.
-
-
-## Requirements
-
-Terraform version >= 0.12
-
-AWS provider version >= 3.0
 
 
 **Example**
