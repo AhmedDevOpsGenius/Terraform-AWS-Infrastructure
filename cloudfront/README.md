@@ -62,6 +62,7 @@ module "cloudfront" {
 }
 
 
+
 ## Inputs
 
 | Name                 | Description                                | Type    | Default                     | Required |
@@ -70,6 +71,7 @@ module "cloudfront" {
 | `comment`            | Comment for the CloudFront distribution    | `string`| `My CloudFront Distribution`|  no      |
 | `price_class`        | The price class for CloudFront             | `string`| `PriceClass_100`            |  no      |
 | `default_root_object`| The default object to serve                | `string`| `index.html`                |  no      |
+
 
 
 ## Outputs
@@ -89,7 +91,7 @@ AWS CloudFront Distribution: Creates a CDN distribution that caches and delivers
 AWS Origin Access Identity (optional): Grants CloudFront access to an S3 bucket.
 
 
-Requirements
+## Requirements
 
 Terraform version >= 0.12
 
