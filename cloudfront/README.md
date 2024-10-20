@@ -10,11 +10,16 @@ This Terraform module creates a fully dynamic AWS CloudFront distribution with o
 - Optionally associates an SSL certificate for HTTPS delivery.
 - Supports custom error responses.
 
+# CloudFront Terraform Module
+
+This Terraform module creates a CloudFront distribution with customizable options for caching, error responses, and origins.
+
 ## Usage
 
+```hcl
 module "cloudfront" {
-  source = "./cloudfront"
-
+  source              = "./cloudfront"
+  
   enabled             = true
   comment             = "My CloudFront Distribution"
   price_class         = "PriceClass_100"
@@ -55,7 +60,6 @@ module "cloudfront" {
     error_caching_min_ttl = 300
   }
 }
-
 
 
 ## Inputs
